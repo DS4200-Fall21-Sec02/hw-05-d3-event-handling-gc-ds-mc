@@ -19,13 +19,34 @@ let svg = d3.select('#vis')
   .style('border', 'solid')
   .attr('viewBox', [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom].join(' '))
 
+function changeCircleColor() {
+  circle.attr('fill', "rgb(" + (Math.round(Math.random() * 255)) + ", "
+      + (Math.round(Math.random() * 255)) + ", "
+      + (Math.round(Math.random() * 255)) + ")")
+}
+
+function changeBothColors() {
+  let color = "rgb(" + (Math.round(Math.random() * 255)) + ", "
+      + (Math.round(Math.random() * 255)) + ", "
+      + (Math.round(Math.random() * 255)) + ")"
+  rect.attr('fill', color)
+  circle.attr('fill', color)
+}
+
 // Add a square 
 let rect = svg.append('rect')
   .attr('x', '100')
   .attr('y', '200')
   .attr('width', '20%')
   .attr('height', '20%')
-  .attr('fill', '#a6cee3'); 
+  .attr('fill', '#a6cee3')
+  .on("click", changeCircleColor)
+  .on("dblclick", changeBothColors)
+  .on("mouseover", function () {
+    d3.select(this).attr('stroke', '#000000')
+    .attr('stroke-width', '5')})
+  .on("mouseout", function () {
+    d3.select(this).attr("stroke", "none")})
 
 // Add a circle 
 let circle = svg.append('circle') 
@@ -33,6 +54,15 @@ let circle = svg.append('circle')
   .attr('cy', '250')
   .attr('r', '60')
   .attr('fill', '#b2df8a')
-
-
-
+  .on("mouseover", function () {
+    d3.select(this).attr('stroke', '#000000')
+    .attr('stroke-width', '5')})
+  .on("mouseout", function () {
+    d3.select(this).attr("stroke", "none")})
+  .call(d3.drag()
+    .on("drag", function(event) {
+    let coords = d3.pointer(event, svg)
+    d3.select(this)
+    .attr("x", coords[0])
+    .attr("y", coords[1])
+  }));
