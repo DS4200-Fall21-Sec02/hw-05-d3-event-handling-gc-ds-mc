@@ -2,8 +2,7 @@
 
 This repository is your starting point for hw-05. Assignment details and instructions are below. 
 
-Link to your GitHub pages website: `[https://ds4200-fall21-sec02.github.io/hw-05-d3-event-handling-gc-ds-mc/]`
-
+Link to your GitHub pages website: [https://github.com/DS4200-Fall21-Sec02/hw-05-d3-event-handling-gc-ds-mc](https://github.com/DS4200-Fall21-Sec02/hw-05-d3-event-handling-gc-ds-mc/edit/main/README.md)
 # Aim of the assignment
 
 The purpose of this assignment is to practice event handling with D3. This is important for managing interactions in your visualizations, and will prepare you for your upcoming brushing and linking assignment.
