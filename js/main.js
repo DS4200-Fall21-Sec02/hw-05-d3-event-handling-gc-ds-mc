@@ -84,8 +84,6 @@ function draggingCircle(event){
   let xCoor = d3.pointer(event, this)[0];
   let yCoor = d3.pointer(event, this)[1];
 
-  console.log(d3.select(this).node().getBoundingClientRect().width / 4)
-
   d3.select(this).attr("cx", xCoor).attr("cy", yCoor);
 }
 
