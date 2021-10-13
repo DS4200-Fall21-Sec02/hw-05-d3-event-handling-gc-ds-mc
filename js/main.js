@@ -47,6 +47,10 @@ let rect = svg.append('rect')
     .attr('stroke-width', '5')})
   .on("mouseout", function () {
     d3.select(this).attr("stroke", "none")})
+  .call(d3.drag()
+    .on('start', dragStart)
+    .on('drag', dragging)
+    .on('end', dragEnd))
 
 // Add a circle 
 let circle = svg.append('circle') 
@@ -60,9 +64,34 @@ let circle = svg.append('circle')
   .on("mouseout", function () {
     d3.select(this).attr("stroke", "none")})
   .call(d3.drag()
-    .on("drag", function(event) {
-    let coords = d3.pointer(event, svg)
-    d3.select(this)
-    .attr("x", coords[0])
-    .attr("y", coords[1])
-  }));
+    .on('start', dragStart)
+    .on('drag', draggingCircle)
+    .on('end', dragEnd))
+
+function dragStart(){
+  d3.select(this).raise().classed("active", true);
+}
+
+function dragging(event){
+  let xCoor = d3.pointer(event, this)[0];
+  let yCoor = d3.pointer(event, this)[1];
+
+  d3.select(this).attr("x", xCoor - 10 - Math.ceil(d3.select(this).node().getBoundingClientRect().width / 4))
+  .attr("y", yCoor - 10 - Math.ceil(d3.select(this).node().getBoundingClientRect().height / 4));
+}
+
+function draggingCircle(event){
+  let xCoor = d3.pointer(event, this)[0];
+  let yCoor = d3.pointer(event, this)[1];
+
+  console.log(d3.select(this).node().getBoundingClientRect().width / 4)
+
+  d3.select(this).attr("cx", xCoor).attr("cy", yCoor);
+}
+
+function dragEnd(){
+  d3.select(this).raise().classed("active", false);
+}
+
+
+
